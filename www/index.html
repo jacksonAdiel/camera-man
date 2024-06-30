@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <link href="css/style.css" rel="stylesheet" />
+        <script src="cordova.js"></script>
+    </head>
+
+    <body>
+        <div class="background">
+            <div class="wrapper">
+                <div class="titulo">
+                    <h1>CÂMERA-MAN</h1>
+                </div>
+                <div class="acoes">
+                    <button id="btnFoto" class="botao">Abrir Câmera</button>
+                    <img id="imagemCapturada" src="" alt="Imagem Capturada" style="display:none;" />
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('deviceready', function() {
+                document.getElementById('btnFoto').addEventListener('click', abrirCamera);
+            });
+
+            function abrirCamera() {
+                navigator.camera.getPicture(onSucesso, onFalha, {
+                    quality: 50,
+                    destinationType: Camera.DestinationType.FILE_URI
+                });
+
+                function onSucesso(imageURI) {
+                    var image = document.getElementById('imagemCapturada');
+                    image.src = imageURI;
+                    image.style.display = 'block';
+                }
+
+                function onFalha(mensagem) {
+                    alert('DEU ERRADO: ' + mensagem);
+                }
+            }
+        </script>
+    </body>
+
+</html>
